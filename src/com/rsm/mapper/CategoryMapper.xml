@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rsm.mapper.CategoryMapper">
+	<!-- 分页查询所有 -->
+	<select id="findAll" resultMap="rsMap">
+		select * from category
+	</select>
+	<!-- 增加一个菜品分类 -->
+	<insert id="add">
+		insert into category(category_name,cook_id)
+		values(#{categoryName},#{cookId})
+	</insert>
+	<!-- 查询一个菜品分类 -->
+	<select id="findOne" resultMap="rsMap">
+		select * from category where
+		id=#{id}
+	</select>
+	<!-- 修改一个菜品分类 -->
+	<insert id="update">
+		update category set
+		category_name=#{categoryName},cook_id=#{cookId} where id=#{id}
+	</insert>
+	<!-- 删除一个分类 -->
+	<delete id="delete">
+		delete from category where id=#{id}
+	</delete>
+	<!-- 查询所有分类 -->
+	<select id="findAllCategory" resultType="Map">
+		select id as
+		id,category_name as text from category
+	</select>
+	<!-- 查询所有的厨师分类 -->
+	<select id="findAllCook" resultType="Map">
+		select id as id,cook_name as
+		text from cook
+	</select>
+	<resultMap type="com.rsm.bean.Category" id="rsMap">
+		<result property="id" column="id" />
+		<result property="categoryName" column="category_name" />
+		<result property="cookId" column="cook_id" />
+		<association property="cooker" column="cook_id" select="findCookById"></association>
+	</resultMap>
+	<select id="findCookById" resultType="com.rsm.bean.Cooker">
+		select * from cook where id=#{id}
+	</select>
+</mapper>

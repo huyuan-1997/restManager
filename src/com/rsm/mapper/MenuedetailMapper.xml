@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rsm.mapper.MenuedetailMapper">
+	<!-- 分页查询所有 -->
+	<select id="findAll" resultMap="rsMap">
+		select * from food 
+		<where>
+			<if test="foodName">and food_name like '%${foodName}%' </if>
+		</where>
+	</select>
+	
+	<!-- 增加一个菜品-->
+	<insert id="add">
+		insert into food(food_name,food_price,food_url,category_id,food_sort) values(#{foodName},#{foodPrice},#{foodUrl},#{categoryId},#{foodSort})
+	</insert>
+	<!-- 查询一个菜品 -->
+	<select id="findOne" resultMap="rsMap">
+		select * from food where food_id=#{id}
+	</select>
+	<!-- 修改一个菜品 -->
+	<insert id="update">
+		update food set food_name=#{foodName},food_price=#{foodPrice},food_url=#{foodUrl},category_id=#{categoryId},food_sort=#{foodSort} where food_id=#{foodId}
+	</insert>
+	<!-- 删除一个菜品 -->
+	<delete id="delete">
+		delete from food where food_id=#{id}
+	</delete>
+	<resultMap type="com.rsm.bean.Food" id="rsMap">
+		<result property="foodId" column="food_id"/>
+		<result property="foodName" column="food_name"/>
+		<result property="foodPrice" column="food_price"/>
+		<result property="foodUrl" column="food_url"/>
+		<result property="categoryId" column="category_id"/>
+		<result property="foodSort" column="food_sort"/>
+		<association property="categorys" column="category_id" select="findCategoryById"></association>
+	</resultMap>
+	<select id="findCategoryById" resultMap="restMap">
+		select * from category where id=#{id}
+	</select>
+	<resultMap type="com.rsm.bean.Category" id="restMap">
+		<result property="id" column="id"/>
+		<result property="categoryName" column="category_name"/>
+		<result property="cookId" column="cook_id"/>
+	</resultMap>
+	
+</mapper>

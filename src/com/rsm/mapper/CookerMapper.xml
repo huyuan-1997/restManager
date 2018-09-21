@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.rsm.mapper.CookerMapper">
+	<!-- 插入Cooker -->
+	<insert id="insertCooker" parameterType="com.rsm.bean.Cooker"
+	useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO cook(cook_name) VALUE (#{cook_name})
+	</insert>
+	
+	<!-- 查询所有Cooker -->
+	<select id="queryAllCooker" resultType="com.rsm.bean.Cooker">
+		SELECT * FROM cook
+	</select>
+	
+	<!-- 批量删除Cooker -->
+	<delete id="deleteCookers">
+		DELETE FROM cook WHERE FIND_IN_SET(id,#{ids})
+	</delete>
+	<!-- 根据id查询Cooker -->
+	<select id="queryCookerById">
+		SELECT * FROM WHERE id=#{id}
+	</select>
+</mapper>

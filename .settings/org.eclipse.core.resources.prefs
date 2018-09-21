@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/com/rsm/common/FastDFSClient.java=UTF-8
+encoding//src/com/rsm/common/HttpClientUtil.java=UTF-8
+encoding//src/com/rsm/common/JsonUtils.java=UTF-8
+encoding//src/com/rsm/mapper/OrdersItemMapper.java=UTF-8
+encoding//src/com/rsm/mapper/OrdersMapper.java=UTF-8
+encoding//src/com/rsm/service/OrdersItemService.java=UTF-8
+encoding//src/com/rsm/service/OrdersService.java=UTF-8
+encoding//src/com/rsm/service/impl/OrdersItemServiceImpl.java=UTF-8
+encoding//src/com/rsm/service/impl/OrdersServiceImpl.java=UTF-8

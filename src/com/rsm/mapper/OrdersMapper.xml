@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rsm.mapper.OrdersMapper">
+	<select id="selectOrdersList" resultType="com.rsm.bean.Orders">
+		select * from orders
+	</select>
+	
+	 <select id="findOrdersWithItems" parameterType="Integer" resultMap="findOrdersWithItemsResult">
+	 	select o.*,oi.food_id,oi.order_id,oi.amount
+		from orders o,order_detail oi
+		where o.order_id=oi.order_id
+		and o.order_id=#{order_id}
+	 </select>
+	 <resultMap type="com.rsm.bean.Orders" id="findOrdersWithItemsResult">
+	 	<id property="order_id" column="order_id"/>
+	 	<result property="create_time" column="create_time"/>
+	 
+	 	
+	 	 <collection property="ordersItems" ofType="com.rsm.bean.OrdersItem">
+	 	 	<id property="id" column="sid"/>
+	 	 	<result property="food_id" column="food_id"/>
+	 	 	<result property="status" column="status"/>
+	 	 	<result property="order_id" column="order_id"/>
+	 	 	<result property="amount" column="amount"/>
+	 	 </collection>
+	 </resultMap>
+	 
+	 <select id="seletFoodById" parameterType="Integer" resultType="com.rsm.bean.Food">
+		select * from food where food_id=#{food_id}
+	</select>
+	
+	<delete id="deleteOrdersById" parameterType="Integer">
+		delete from orders where order_id=#{order_id}
+	</delete>
+	
+	<select id="listOrdersPage" resultType="com.rsm.bean.Orders">
+		select * from orders
+		<if test="start!=null and count!=null">
+			limit #{start},#{count}
+		</if>
+	</select>
+	<select id="total" resultType="Integer">
+		select count(*) from orders
+	</select>
+</mapper>
